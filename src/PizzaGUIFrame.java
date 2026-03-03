@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -12,20 +13,20 @@ public class PizzaGUIFrame extends JFrame {
     // Prices
     private JCheckBox[] toppingBoxes;
     private final String[] TOPPINGS = {
-        "Eyeball Slices ($1.00)",
-        "Werewolf Fur ($1.00)",
-        "Vampire Tears ($1.00)",
-        "Dragon Scales ($1.00)",
-        "Zombie Brain Bits ($1.00)",
-        "Witch Wart Mushrooms ($1.00)",
-        "Ghost Pepper Lava ($1.00)",
-        "Mummy Wrap Mozzarella ($1.00)"
+            "Eyeball Slices ($1.00)",
+            "Werewolf Fur ($1.00)",
+            "Vampire Tears ($1.00)",
+            "Dragon Scales ($1.00)",
+            "Zombie Brain Bits ($1.00)",
+            "Witch Wart Mushrooms ($1.00)",
+            "Ghost Pepper Lava ($1.00)",
+            "Mummy Wrap Mozzarella ($1.00)"
     };
 
     private final String[] SIZES = {"Small", "Medium", "Large", "Super"};
     private final double[] SIZE_PRICES = {8.00, 12.00, 16.00, 20.00};
 
-    private JTextArea orderTextArea;
+    private JTextPane orderTextArea;
 
     // Buttons
     private JButton orderBtn, clearBtn, quitBtn;
@@ -69,9 +70,9 @@ public class PizzaGUIFrame extends JFrame {
     private JPanel buildCrustPanel() {
         JPanel panel = new JPanel(new GridLayout(3, 1, 5, 5));
         panel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createEtchedBorder(), "Crust Type",
-            TitledBorder.CENTER, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 13), new Color(139, 0, 0)));
+                BorderFactory.createEtchedBorder(), "Crust Type",
+                TitledBorder.CENTER, TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 13), new Color(139, 0, 0)));
 
         crustGroup = new ButtonGroup();
         thinCrust = new JRadioButton("Thin");
@@ -96,15 +97,15 @@ public class PizzaGUIFrame extends JFrame {
     private JPanel buildSizePanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 20));
         panel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createEtchedBorder(), "Pizza Size",
-            TitledBorder.CENTER, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 13), new Color(139, 0, 0)));
+                BorderFactory.createEtchedBorder(), "Pizza Size",
+                TitledBorder.CENTER, TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 13), new Color(139, 0, 0)));
 
         sizeCombo = new JComboBox<>(new String[]{
-            "Small  - $8.00",
-            "Medium - $12.00",
-            "Large  - $16.00",
-            "Super  - $20.00"
+                "Small  - $8.00",
+                "Medium - $12.00",
+                "Large  - $16.00",
+                "Super  - $20.00"
         });
         sizeCombo.setFont(new Font("Arial", Font.PLAIN, 13));
         sizeCombo.setPreferredSize(new Dimension(180, 30));
@@ -116,9 +117,9 @@ public class PizzaGUIFrame extends JFrame {
     private JPanel buildToppingsPanel() {
         JPanel panel = new JPanel(new GridLayout(0, 1, 3, 3));
         panel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createEtchedBorder(), "Monster Toppings",
-            TitledBorder.CENTER, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 13), new Color(139, 0, 0)));
+                BorderFactory.createEtchedBorder(), "Monster Toppings",
+                TitledBorder.CENTER, TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 13), new Color(139, 0, 0)));
 
         toppingBoxes = new JCheckBox[TOPPINGS.length];
         for (int i = 0; i < TOPPINGS.length; i++) {
@@ -132,11 +133,11 @@ public class PizzaGUIFrame extends JFrame {
     private JPanel buildReceiptPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBorder(BorderFactory.createTitledBorder(
-            BorderFactory.createEtchedBorder(), "Order Receipt",
-            TitledBorder.CENTER, TitledBorder.TOP,
-            new Font("Arial", Font.BOLD, 13), new Color(139, 0, 0)));
+                BorderFactory.createEtchedBorder(), "Order Receipt",
+                TitledBorder.CENTER, TitledBorder.TOP,
+                new Font("Arial", Font.BOLD, 13), new Color(139, 0, 0)));
 
-        orderTextArea = new JTextArea(10, 50);
+        orderTextArea = new JTextPane();
         orderTextArea.setFont(new Font("Monospaced", Font.PLAIN, 13));
         orderTextArea.setEditable(false);
         orderTextArea.setBackground(new Color(255, 255, 240));
@@ -144,11 +145,11 @@ public class PizzaGUIFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(orderTextArea);
         panel.add(scrollPane, BorderLayout.CENTER);
         panel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createEmptyBorder(5, 10, 5, 10),
-            BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Order Receipt",
-                TitledBorder.CENTER, TitledBorder.TOP,
-                new Font("Arial", Font.BOLD, 13), new Color(139, 0, 0))
+                BorderFactory.createEmptyBorder(5, 10, 5, 10),
+                BorderFactory.createTitledBorder(
+                        BorderFactory.createEtchedBorder(), "Order Receipt",
+                        TitledBorder.CENTER, TitledBorder.TOP,
+                        new Font("Arial", Font.BOLD, 13), new Color(139, 0, 0))
         ));
 
         return panel;
@@ -188,7 +189,7 @@ public class PizzaGUIFrame extends JFrame {
     private void buildOrder() {
         if (!thinCrust.isSelected() && !regularCrust.isSelected() && !deepDishCrust.isSelected()) {
             JOptionPane.showMessageDialog(this,
-                "Please select a crust type!", "Missing Selection", JOptionPane.WARNING_MESSAGE);
+                    "Please select a crust type!", "Missing Selection", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -198,53 +199,67 @@ public class PizzaGUIFrame extends JFrame {
         }
         if (!hasToppings) {
             JOptionPane.showMessageDialog(this,
-                "Please select at least one topping!", "Missing Selection", JOptionPane.WARNING_MESSAGE);
+                    "Please select at least one topping!", "Missing Selection", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         String crust = thinCrust.isSelected() ? "Thin" :
-                       regularCrust.isSelected() ? "Regular" : "Deep-Dish";
+                regularCrust.isSelected() ? "Regular" : "Deep-Dish";
 
         int sizeIdx = sizeCombo.getSelectedIndex();
         String size = SIZES[sizeIdx];
         double subTotal = SIZE_PRICES[sizeIdx];
 
         // Build receipt
-        StringBuilder sb = new StringBuilder();
         String divider  = "=========================================\n";
         String divider2 = "-----------------------------------------\n";
 
-        sb.append(divider);
-        sb.append(String.format("%-28s %s\n", "MONSTER PIZZA PALACE", ""));
-        sb.append(divider);
-        sb.append(String.format("%-28s %s\n", "Crust Type:", crust));
-        sb.append(String.format("%-28s %s\n", "Size:", size));
-        sb.append(String.format("%-28s %s\n", "Base Price:", String.format("$%.2f", subTotal)));
-        sb.append(divider2);
-        sb.append(String.format("%-28s %s\n", "Toppings:", "Price"));
-        sb.append(divider2);
+        StyledDocument doc = orderTextArea.getStyledDocument();
+        SimpleAttributeSet normal = new SimpleAttributeSet();
+        StyleConstants.setFontFamily(normal, "Monospaced");
+        StyleConstants.setFontSize(normal, 13);
+        StyleConstants.setBold(normal, false);
 
-        for (JCheckBox box : toppingBoxes) {
-            if (box.isSelected()) {
-                String name = box.getText().replace(" ($1.00)", "");
-                sb.append(String.format("  %-26s $1.00\n", name));
-                subTotal += 1.00;
+        SimpleAttributeSet bold = new SimpleAttributeSet();
+        StyleConstants.setFontFamily(bold, "Consolas"); // or "Courier New" if you prefer
+        StyleConstants.setFontSize(bold, 13);
+        StyleConstants.setBold(bold, true);
+
+        try {
+            doc.remove(0, doc.getLength());
+            doc.insertString(doc.getLength(), divider, normal);
+            doc.insertString(doc.getLength(), String.format("%-28s %s\n", "MONSTER PIZZA PALACE", ""), normal);
+            doc.insertString(doc.getLength(), divider, normal);
+            doc.insertString(doc.getLength(), String.format("%-28s %s\n", "Crust Type:", crust), normal);
+            doc.insertString(doc.getLength(), String.format("%-28s %s\n", "Size:", size), normal);
+            doc.insertString(doc.getLength(), String.format("%-28s %s\n", "Base Price:", String.format("$%.2f", SIZE_PRICES[sizeIdx])), normal);
+            doc.insertString(doc.getLength(), divider2, normal);
+            doc.insertString(doc.getLength(), String.format("%-28s %s\n", "Toppings:", "Price"), normal);
+            doc.insertString(doc.getLength(), divider2, normal);
+
+            for (JCheckBox box : toppingBoxes) {
+                if (box.isSelected()) {
+                    String name = box.getText().replace(" ($1.00)", "");
+                    doc.insertString(doc.getLength(), String.format("  %-26s $1.00\n", name), normal);
+                    subTotal += 1.00;
+                }
             }
+
+            double tax   = subTotal * 0.07;
+            double total = subTotal + tax;
+
+            doc.insertString(doc.getLength(), divider2, normal);
+            doc.insertString(doc.getLength(), String.format("%-28s $%.2f\n", "Sub-total:", subTotal), bold);
+            doc.insertString(doc.getLength(), String.format("%-28s $%.2f\n", "Tax (7%):", tax), normal);
+            doc.insertString(doc.getLength(), divider2, normal);
+            doc.insertString(doc.getLength(), String.format("%-28s $%.2f\n", "TOTAL:", total), bold);
+            doc.insertString(doc.getLength(), divider, normal);
+            doc.insertString(doc.getLength(), "    Thank you for ordering at Monster Pizza!\n", normal);
+            doc.insertString(doc.getLength(), divider, normal);
+
+        } catch (BadLocationException e) {
+            e.printStackTrace();
         }
-
-        double tax   = subTotal * 0.07;
-        double total = subTotal + tax;
-
-        sb.append(divider2);
-        sb.append(String.format("%-28s $%.2f\n", "Sub-total:", subTotal));
-        sb.append(String.format("%-28s $%.2f\n", "Tax (7%):", tax));
-        sb.append(divider2);
-        sb.append(String.format("%-28s $%.2f\n", "TOTAL:", total));
-        sb.append(divider);
-        sb.append("    Thank you for ordering at Monster Pizza!\n");
-        sb.append(divider);
-
-        orderTextArea.setText(sb.toString());
     }
 
     private void clearForm() {
@@ -256,12 +271,16 @@ public class PizzaGUIFrame extends JFrame {
 
     private void confirmQuit() {
         int response = JOptionPane.showConfirmDialog(this,
-            "Are you sure you want to quit?",
-            "Confirm Exit",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE);
+                "Are you sure you want to quit?",
+                "Confirm Exit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
         if (response == JOptionPane.YES_OPTION) {
             System.exit(0);
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(PizzaGUIFrame::new);
     }
 }
